@@ -1,0 +1,86 @@
+# примеры API-запросов
+
+@baseUrl = http://localhost:8000/api
+@tokenUser1 = 2b837defb20cc1da30c57896db4fc073df181531
+@tokenUser2 = b261695f6203c2771030a11ce4c4f29a6eecd827
+
+###
+
+# получение объявлений
+GET {{baseUrl}}/advertisements/
+Content-Type: application/json
+
+###
+
+# получение объявлений по id
+GET {{baseUrl}}/advertisements/1/
+Content-Type: application/json
+
+
+###
+
+# получение объявлений по id с авторизацией
+GET {{baseUrl}}/advertisements/1/
+Content-Type: application/json
+Authorization: Token {{tokenUser2}}
+
+###
+
+# создание объявления
+POST {{baseUrl}}/advertisements/
+Content-Type: application/json
+Authorization: Token {{tokenUser1}}
+
+{
+  "title": "Шкаф IKE222A132",
+  "description": "Срочн22о231"
+}
+
+###
+
+# попытка поменять объявление
+PATCH {{baseUrl}}/advertisements/1/
+Content-Type: application/json
+Authorization: Token {{tokenUser1}}
+
+{
+  "status": "CLOSED"
+}
+
+###
+
+# получение объявлений по id с авторизацией
+GET {{baseUrl}}/advertisements/1/
+Content-Type: application/json
+Authorization: Token {{tokenUser2}}
+
+###
+
+# удалить чужое объвление
+
+DELETE {{baseUrl}}/advertisements/4/
+Authorization: Token {{tokenUser1}}
+
+###
+
+DELETE {{baseUrl}}/advertisements/2/
+Authorization: Token 57d5a1d6766655f2da293476d8dd4e8cdd377647
+
+###
+
+# фильтрация по создателю
+GET {{baseUrl}}/advertisements/?creator=2
+Content-Type: application/json
+
+###
+
+# фильтрация по статусу
+GET {{baseUrl}}/advertisements/?status=CLOSED
+Content-Type: application/json
+
+
+###
+
+# фильтрация по дате
+GET {{baseUrl}}/advertisements/?created_at=2023-12-12
+Content-Type: application/json
