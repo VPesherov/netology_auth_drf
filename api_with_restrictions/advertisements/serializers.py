@@ -35,10 +35,10 @@ class AdvertisementSerializer(serializers.ModelSerializer):
         # обратите внимание на `context` – он выставляется автоматически
         # через методы ViewSet.
         # само поле при этом объявляется как `read_only=True`
-        queryset = Advertisement.objects.filter(creator=self.context["request"].user, status="OPEN").count()
+        # queryset = Advertisement.objects.filter(creator=self.context["request"].user, status="OPEN").count()
 
-        if queryset > 10:
-            raise ValidationError('У вас уже больше 10 открытых объявлений!')
+        # if queryset > 10:
+            # raise ValidationError('У вас уже больше 10 открытых объявлений!')
         validated_data["creator"] = self.context["request"].user
         return super().create(validated_data)
 
@@ -49,7 +49,10 @@ class AdvertisementSerializer(serializers.ModelSerializer):
         # как отловить юзера?
         # print(data, self.context)
         # queryset = Advertisement.objects.filter()
-        # for i in queryset:
-        #     pass
-        #     # print(i)
+        # print(dict(self.get_fields())['creator'])
+        print(self.context["request"].user, data)
+
+        queryset = Advertisement.objects.filter(creator=self.context["request"].user, status="OPEN").count()
+        if queryset > 10 and data.get('status') != 'CLOSED':
+            raise ValidationError('У вас уже больше 10 открытых объявлений!')
         return data

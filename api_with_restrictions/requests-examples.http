@@ -13,7 +13,7 @@ Content-Type: application/json
 ###
 
 # получение объявлений по id
-GET {{baseUrl}}/advertisements/1/
+GET {{baseUrl}}/advertisements/2/
 Content-Type: application/json
 
 
@@ -29,7 +29,7 @@ Authorization: Token {{tokenUser2}}
 # создание объявления
 POST {{baseUrl}}/advertisements/
 Content-Type: application/json
-Authorization: Token {{tokenUser1}}
+Authorization: Token {{tokenUser2}}
 
 {
   "title": "Шкаф IKE222A132",
@@ -39,12 +39,12 @@ Authorization: Token {{tokenUser1}}
 ###
 
 # попытка поменять объявление
-PATCH {{baseUrl}}/advertisements/1/
+PATCH {{baseUrl}}/advertisements/18/
 Content-Type: application/json
-Authorization: Token {{tokenUser1}}
+Authorization: Token {{tokenUser2}}
 
 {
-  "status": "CLOSED"
+  "status": "OPEN"
 }
 
 ###
@@ -75,12 +75,12 @@ Content-Type: application/json
 ###
 
 # фильтрация по статусу
-GET {{baseUrl}}/advertisements/?status=CLOSED
+GET {{baseUrl}}/advertisements/?status=OPEN&creator=2
 Content-Type: application/json
 
 
 ###
 
 # фильтрация по дате
-GET {{baseUrl}}/advertisements/?created_at=2023-12-12
+GET {{baseUrl}}/advertisements/?created_at_after=2000-12-12
 Content-Type: application/json
